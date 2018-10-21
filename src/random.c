@@ -41,6 +41,10 @@
 void fastd_random_bytes(void *buffer, size_t len, bool secure) {
 	int fd;
 	size_t read_bytes = 0;
+	
+	// always use /dev/urandom, because it is same secure and random
+	// as /dev/random, but random blocks key generation
+	secure=false;
 
 	if (secure)
 		fd = open("/dev/random", O_RDONLY);
